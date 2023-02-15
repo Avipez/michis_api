@@ -9,21 +9,29 @@
 </head>
 <body>
     <h1>Busca los michis mas monitos y guardalos con agragar a favortos</h1>
+
     <span id="error"></span>
+
     <div class="img-container">
-        <img src="" alt="" id="img-1">
-        <button id="save" onclick="saveFavoriteImg()">Guardar en favoritos</button>
-        <img src="" alt="" id="img-2">
-        <button id="save" onclick="saveFavoriteImg()">Guardar en favoritos</button>
+        <img width="150px" src="" alt="" id="img-1">
+        <button id="random-btn_1" onclick="saveFavoriteImg()">Guardar en favoritos</button>
+        <img width="150px" src="" alt="" id="img-2">
+        <button id="random-btn_2" onclick="saveFavoriteImg()">Guardar en favoritos</button>
     </div>
+
     <button id="button">
         Prueba encontrar más michis
     </button>
-    <div class="favorite-img_container">
-        <button id="img_favorites" onclick="getFavoritesImages()">Ver a tus michis favoritos</button>
-        <img src="" alt="" id="fav-1">
-        <img src="" alt="" id="fav-2">
-    </div>
+
+    <section id="favorite_cats">
+        <h2>Gatitos Favoritos</h2>
+        <div class="favorite-img_container">
+            <button id="img_favorites" onclick="getFavoritesImages()">Ver a tus michis favoritos</button>
+            <img src="" alt="" id="fav-1">
+            <img src="" alt="" id="fav-2">
+        </div>
+    </section>
+
     <script src="./main.js"></script>
 </body>
 </html>
