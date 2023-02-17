@@ -1,8 +1,9 @@
 console.log("hello world");
 
 const RANDOM_API_URL = "https://api.thecatapi.com/v1/images/search?limit=2";
-const FAVORITES_API_URL = "https://api.thecatapi.com/v1/favourites?api_key=e69ffd14-1134-4bf3-b6dc-b1cb922a6d16"
-const SAVE_IMG_URL = "https://api.thecatapi.com/v1/favourites?api_key=e69ffd14-1134-4bf3-b6dc-b1cb922a6d16"
+const FAVORITES_API_URL = "https://api.thecatapi.com/v1/favourites";
+const SAVE_IMG_URL = "https://api.thecatapi.com/v1/favourites";
+const UPLOAD_IMG = "https://api.thecatapi.com/v1/images/upload";
 const DELETE_IMG_API = (id) => `https://api.thecatapi.com/v1/favourites/${id}?api_key=e69ffd14-1134-4bf3-b6dc-b1cb922a6d16`
 const BUTTON = document.getElementById('button');
 
@@ -45,7 +46,12 @@ async function getRandomCatImage() {
 }
 
 const getFavoritesImages = async () => {
-    const res = await fetch(FAVORITES_API_URL)
+    const res = await fetch(FAVORITES_API_URL, {
+        method: "GET",
+        headers: {
+            "x-api-key": "e69ffd14-1134-4bf3-b6dc-b1cb922a6d16"
+        }
+    })
     const data = await res.json();
 
     console.log("Favoritos");
@@ -84,7 +90,9 @@ const getFavoritesImages = async () => {
 const saveFavoriteImg = async (id) => {
     const res = await fetch(SAVE_IMG_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+            "x-api-key": "e69ffd14-1134-4bf3-b6dc-b1cb922a6d16"
+    },
         body: JSON.stringify({
             image_id: id
         })
@@ -117,5 +125,32 @@ async function deleteFavoriteCat(id) {
 
 getRandomCatImage();
 getFavoritesImages();
+
+async function uploadCatImg() {
+    const form = document.getElementById("uploadingForm");
+    const formData = new FormData(form);
+
+    const res = await fetch(UPLOAD_IMG, {
+        method: "POST",
+        headers: {
+            /* "Content-Type": "multipart/form-data;", */
+            "x-api-key": "e69ffd14-1134-4bf3-b6dc-b1cb922a6d16"
+        },
+        body: formData,
+    });
+
+    const data = await res.json();
+    console.log("Minino en la web");
+
+    if (res.status !== 201) {
+        spanError.innerHTML = `Hubo un error al subir michi: ${res.status} ${data.message}`
+    }
+    else {
+        console.log("Foto en favoritos :)");
+        console.log({ data });
+        console.log(data.url);
+        saveFavoriteImg(data.id);
+    }
+}
 
 BUTTON.addEventListener('click', getRandomCatImage);
